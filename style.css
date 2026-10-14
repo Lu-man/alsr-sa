@@ -1028,13 +1028,12 @@ h2 em {
   min-width: 0;
 }
 
-.video-card video {
+.video-card iframe {
   display: block;
   width: 100%;
   aspect-ratio: 0.72;
   border: 1px solid #383a3e;
   background: #08090a;
-  object-fit: cover;
 }
 
 .video-card h3 {
