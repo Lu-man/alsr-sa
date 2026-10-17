@@ -18,11 +18,13 @@
 }
 
 html {
+  overflow-x: clip;
   scroll-behavior: smooth;
   scroll-padding-top: 90px;
 }
 
 body {
+  overflow-x: clip;
   margin: 0;
   background: var(--paper);
   color: var(--ink);
@@ -52,6 +54,18 @@ a {
   background: rgb(12 13 15 / 96%);
   border-bottom: 1px solid #303236;
   backdrop-filter: blur(14px);
+}
+
+.landing-page .site-header .brand {
+  animation: enter-from-left 850ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.landing-page .site-header .main-nav {
+  animation: enter-from-left 900ms cubic-bezier(0.2, 0.7, 0.2, 1) 120ms both;
+}
+
+.landing-page .site-header .header-content > .button {
+  animation: enter-from-left 900ms cubic-bezier(0.2, 0.7, 0.2, 1) 240ms both;
 }
 
 .header-content {
@@ -160,6 +174,7 @@ a {
   font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.06em;
+  animation: enter-from-bottom 650ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
 .scripture-note span {
@@ -946,6 +961,7 @@ h2 em {
 }
 
 .gallery-video-teaser {
+  overflow-x: clip;
   padding: 45px 0;
   background: #08090a;
 }
@@ -1045,6 +1061,113 @@ h2 em {
 .gallery-cta-content {
   padding-top: 25px;
   padding-bottom: 25px;
+}
+
+.gallery-cta {
+  overflow-x: clip;
+}
+
+.motion-ready .scroll-reveal {
+  opacity: 0;
+  transform: translate3d(var(--reveal-x, 0px), var(--reveal-y, 55px), 0)
+    rotate(var(--reveal-rotation, 0deg)) scale(0.98);
+  transition:
+    opacity 750ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0ms),
+    transform 850ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0ms),
+    visibility 0s linear calc(850ms + var(--reveal-delay, 0ms));
+  visibility: hidden;
+  will-change: opacity, transform;
+}
+
+.motion-ready .scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) rotate(0) scale(1);
+  transition:
+    opacity 750ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0ms),
+    transform 850ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0ms),
+    visibility 0s;
+  visibility: visible;
+}
+
+.landing-page .hero-copy {
+  --reveal-x: -65px;
+  --reveal-y: 0px;
+  --reveal-rotation: -1deg;
+}
+
+.landing-page .hero-visual {
+  --reveal-x: 65px;
+  --reveal-y: 0px;
+  --reveal-rotation: 1deg;
+}
+
+.landing-page .industries-heading,
+.landing-page .contact-copy {
+  --reveal-x: -65px;
+  --reveal-y: 0px;
+  --reveal-rotation: -1deg;
+}
+
+.landing-page .industry-item,
+.landing-page .contact-details {
+  --reveal-x: 65px;
+  --reveal-y: 0px;
+  --reveal-rotation: 1deg;
+}
+
+.gallery-video-teaser .scroll-reveal,
+.gallery-cta .scroll-reveal {
+  --reveal-x: calc(100vw + 2rem);
+  --reveal-y: 0px;
+  --reveal-rotation: 1deg;
+  transition:
+    opacity 900ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0ms),
+    transform 1000ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0ms),
+    visibility 0s linear calc(1000ms + var(--reveal-delay, 0ms));
+}
+
+.gallery-video-teaser .scroll-reveal.is-visible,
+.gallery-cta .scroll-reveal.is-visible {
+  transition:
+    opacity 900ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0ms),
+    transform 1000ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0ms),
+    visibility 0s;
+}
+
+@keyframes enter-from-left {
+  from {
+    opacity: 0;
+    transform: translate3d(-48px, 0, 0) rotate(-2deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(0);
+  }
+}
+
+@keyframes enter-from-right {
+  from {
+    opacity: 0;
+    transform: translate3d(52px, 12px, 0) rotate(2deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(0);
+  }
+}
+
+@keyframes enter-from-bottom {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @media (max-width: 900px) {
@@ -1308,6 +1431,10 @@ h2 em {
     flex-direction: column;
     gap: 17px;
   }
+
+  .footer-brand {
+    flex: 0 0 auto;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1316,5 +1443,21 @@ h2 em {
   *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+    animation: none !important;
+  }
+
+  .motion-ready .scroll-reveal,
+  .motion-ready .scroll-reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    visibility: visible;
+    will-change: auto;
+  }
+
+  .landing-page .site-header .brand,
+  .landing-page .site-header .main-nav,
+  .landing-page .site-header .header-content > .button {
+    animation: none !important;
   }
 }
