@@ -712,6 +712,12 @@ h2 em {
   font-weight: 400;
 }
 
+.designer-link {
+  color: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
 .social-links {
   display: flex;
   flex-wrap: wrap;
